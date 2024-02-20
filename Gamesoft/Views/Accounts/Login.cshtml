@@ -1,0 +1,32 @@
+﻿@using Gamesoft.ViewModels
+@model LoginViewModel
+
+<h1 class="text-center p-4">GAMESOFT</h1>
+<h3 class="text-center">Log In</h3>
+<center><hr width="25%" /></center>
+<div class="container p-4 my-2 d-flex align-items-center justify-content-center">
+    <div class="col-md-4">
+        <partial name="Partial/_Message" />
+        <form method="post" asp-controller="Accounts" asp-action="Login">
+
+            <div class="form-group">
+                <label asp-for="Email" class="required pt-4 pb-1">Email</label>
+                <input asp-for="Email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="">
+                <span asp-validation-for="Email" class="text-danger"></span>
+                
+                <label asp-for="Password" class="required pt-4 pb-1">Password</label>
+                <input asp-for="Password" type="password" class="form-control" aria-describedby="passwordHelp" placeholder="">
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <p class="pt-3">Forgot password ? <a asp-area="" asp-controller="Accounts" asp-action="ForgetPassword">Reset password</a></p>
+                <p>Don't have account ? <a asp-area="" asp-controller="Accounts" asp-action="Create">Create account</a></p>
+               
+            </div>
+
+            <div class="form-row">                
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+
+        </form>
+    </div>
+</div>

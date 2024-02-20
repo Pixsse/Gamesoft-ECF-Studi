@@ -1,0 +1,27 @@
+﻿@model Account
+
+<div class="container-fluid p-4 my-2 d-flex align-items-center justify-content-center">
+    <div class="col-xxl-5 text-black border bg-light p-5">
+        <h1>Account Details</h1>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Username)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Username)
+            </dd>
+        </dl>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.AccountId">Edit</a> |
+            <a asp-action="Index">User List</a>
+        </div>
+
+    </div>
+</div>

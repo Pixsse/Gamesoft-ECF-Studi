@@ -1,0 +1,4 @@
+﻿@if (TempData["Message"] != null)
+{
+    <p class="@((string)TempData["TypeMessage"] == "Success" ? "msgsuccess" : "msgerror")">@TempData["Message"]</p>
+}

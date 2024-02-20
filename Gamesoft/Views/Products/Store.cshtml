@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VProductsStore>
+
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <div class="row justify-content-center" id="storeresults">
+                <partial name="_SearchResultsPartial" model="Model" />
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="row justify-content-center">
+                <a asp-action="WishList"><img src="~/img/HeartFill.png" border="0" class="float-end mb-3" /></a>
+                <form asp-controller="Products" asp-action="Store" method="get" id="storesearch" asp-fragment="storeorder">
+                    <div class="form-group mt-2">
+                        <button class="btn" type="submit" id="search-btn"></button>
+                        <input name="searchedtext" type="search" class="form-control" id="input-search" placeholder="Search Products..." aria-describedby="search-btn" value="@ViewData["SearchText"]" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label  pt-4 pb-1">Genres</label>
+                        <select name="genre" class="dropdown form-control" id="genrefilter">
+                            <option value="">Select a genres...</option>
+                            @foreach (var item in (IEnumerable<ProductGenre>)ViewData["ProductGenres"])
+                            {
+                                <option value="@(item.GenreId)">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label  pt-4 pb-1">Support</label>
+                        <select name="support" class="dropdown form-control" id="statusfilter">
+                            <option value="">Select a status...</option>
+                            @foreach (var item in (IEnumerable<ProductStatus>)ViewData["ProductStatuses"])
+                            {
+                                <option value="@(item.StatusId)">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>        
+    </div>
+</div>

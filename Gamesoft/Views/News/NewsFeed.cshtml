@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Gamesoft.Models.News>
+
+<div class=" container p-4 my-2 d-flex align-items-center justify-content-center">
+    <div class="col-xxl-5 text-black border bg-light p-5">
+        <table class="table">
+            <thead>
+                
+            </thead>
+            @foreach (var item in Model)
+            {
+                <div class="row mb-3 bg-img-dark-2">
+                    <div class="col-md-6">
+                        <div class="news-item">
+                            <div>
+                                <strong>@Html.DisplayFor(modelItem => item.Title)</strong>
+                            </div>
+                            <div>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </div>
+                            <div>
+                                <em>@Html.DisplayFor(modelItem => item.Author)</em>
+                            </div>
+                            <div>
+                                <small>@Html.DisplayFor(modelItem => item.CreationDate)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+
+
+        </table>
+    </div>
+</div>
+<script>
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/newsHub")
+    .build();
+
+connection.start().then(function () {
+    connection.invoke("JoinGroup", "NewsFeed");
+}).catch(function (err) {
+    return console.error(err.toString());
+});
+
+connection.on("ReceiveNews", function (news) {
+        $('#newsresults').html(news);
+});
+</script>

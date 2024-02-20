@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<div class="primary-bg-cc">
+    <ul class="list-inline menu-link navbar-nav align-items-end pe-5">
+        <li class="list-inline-item ">
+
+            <div class="dropdown">
+
+                <button class="navbar-toggler btn shadow-none text-light text-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
+                </button>
+                <div class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="dropdownMenuButton">
+                    @if (Session.AccountId != 0)
+                    {
+                        <a class="nav-link text-light navbar-primary" asp-controller="Accounts" asp-action="Edit" asp-route-id="@Session.AccountId">Account</a>
+                        
+                        @switch (Session.GroupId)
+                        {
+                            case UserGroup.Admin:
+                            {
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-light navbar-primary" asp-controller="Accounts" asp-action="Index">User List</a>
+                                <a class="nav-link text-light navbar-primary" asp-controller="Products" asp-action="Index">Product List</a>                                
+                                <a class="nav-link text-light navbar-primary" asp-controller="News" asp-action="Index">News Feed</a>
+                                break;
+                            }
+                            case UserGroup.CommunityManager:
+                            {
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-light navbar-primary" asp-controller="News" asp-action="Index">News Feed</a>
+                                break;
+                            }
+                            case UserGroup.Productor:
+                            {
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-light navbar-primary" asp-controller="Products" asp-action="Index">Product List</a>
+                                break;
+                            }
+                        }
+                        <a class="nav-link text-light navbar-primary" asp-controller="Products" asp-action="WishList">Wish List</a>
+                        <a class="nav-link text-light navbar-primary" asp-controller="Accounts" asp-action="Logout">Log Out</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-light navbar-primary" asp-controller="Accounts" asp-action="Login">Log In</a>
+                        <a class="nav-link text-light navbar-primary" asp-controller="Accounts" asp-action="Create">Sign Up</a>
+                    }
+                    <div class="dropdown-divider"></div>
+                    <a class="nav-link text-light navbar-primary" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+</div>

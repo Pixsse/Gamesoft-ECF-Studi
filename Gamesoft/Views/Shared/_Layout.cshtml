@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Gamesoft</title>
+
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Gamesoft.styles.css" asp-append-version="true" />
+    </head>
+
+    @{
+        var lastProductImg = ViewData["LastProductImg"] as string;
+        var pageBackground = ViewData["PageBackground"] as string;
+        var bodyStyle = string.Empty;
+        if (!string.IsNullOrEmpty(lastProductImg))
+        {
+            bodyStyle = string.Format("background-image: url('../img/{0}')", lastProductImg);
+        }
+    }
+
+     <body class="@(String.IsNullOrEmpty((string)ViewData["PageBackground"]) ? "bg-img-default" : ViewData["PageBackground"])" style="@bodyStyle">
+        <header>
+            <div class="container-fluid">                
+                <div class="row justify-content-center fixed-top">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <partial name="Partial/_PrimaryNavBarPartial" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col navbar-secondary">
+                                <partial name="Partial/_SecondaryNavBarPartial" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid" style="min-height: 100vh;">
+            <main role="main" class="pb-3 mb-5">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="footer text-muted">
+            <partial name="Partial/_FooterPartial" />
+        </footer>
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+</html>

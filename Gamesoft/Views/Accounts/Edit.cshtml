@@ -1,0 +1,64 @@
+﻿@model Account
+
+<div class="container p-4 my-2 d-flex align-items-center justify-content-center">
+    <div class="col-md-4 text-black border bg-light p-5">
+
+        <h1 class="text-black pb-4">Account Settings</h1>
+        <h4 class="text-black pb-2">Account Information</h4>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AccountId" />
+            <div class="form-group">
+                <label asp-for="Username" class="control-label pt-4 pb-1"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label pt-4 pb-1"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>            
+            @if (Session.AccountId == @Model?.AccountId && (Session.GroupId == UserGroup.Admin || Session.GroupId == UserGroup.BasicUser))
+            {
+                <h4 class="text-black pt-4 pb-2">Security</h4>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label pt-4 pb-1"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>                    
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label pt-4 pb-1"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <input type="hidden" asp-for="Password" />
+            }
+            @if (Session.GroupId == UserGroup.Admin)
+            {
+                <select name="GroupId" class="dropdown">
+                    @foreach (var enumValue in Enum.GetValues(typeof(UserGroup)))                    
+                    {
+                        if ((UserGroup)Model?.GroupId == (UserGroup)enumValue)
+                        {
+                            <option value="@((int)enumValue)" selected="selected">@enumValue</option>
+                        }
+                        else
+                        {
+                            <option value="@((int)enumValue)">@enumValue</option>
+                        }
+                    }
+                </select>
+            }
+            <div class="form-group pt-3">
+                <input type="submit" value="Save Change" class="btn btn-primary text-uppercase" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

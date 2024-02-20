@@ -1,0 +1,138 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3 class="text-center text-dark">Edit Product</h3>
+<center><hr width="25%" /></center>
+
+<div class="container p-4 my-2 d-flex align-items-center justify-content-center text-dark">
+    <div class="col-md-4 text-black border bg-light p-5">
+        <partial name="Partial/_Message" />
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="FeaturedImage" />
+            <input type="hidden" asp-for="LastUpdatedDate" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="StudioName" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="StudioName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportId" class="control-label  pt-4 pb-1"></label>
+                <select name="SupportId" class="dropdown form-control">
+                    @foreach (var item in (IEnumerable<ProductSupport>)ViewData["ProductSupports"])
+                    {
+                        if ((int)Model?.SupportId == item.SupportId)
+                        {
+                            <option value="@(item.SupportId)" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@(item.SupportId)">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevelopementPriority" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="DevelopementPriority" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineId" class="control-label  pt-4 pb-1"></label>
+                <select name="EngineId" class="dropdown form-control">
+                    @foreach (var item in (IEnumerable<ProductEngine>)ViewData["ProductEngines"])
+                    {
+                        if ((int)Model?.EngineId == item.EngineId)
+                        {
+                            <option value="@(item.EngineId)" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@(item.EngineId)">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label  pt-4 pb-1"></label>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimatedCreationEndDate" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="EstimatedCreationEndDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxBudget" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="MaxBudget" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusId" class="control-label  pt-4 pb-1"></label>
+                <select name="StatusId" class="dropdown form-control">
+                    @foreach (var item in (IEnumerable<ProductStatus>)ViewData["ProductStatuses"])
+                    {
+                        if ((int)Model?.StatusId == item.StatusId)
+                        {
+                            <option value="@(item.StatusId)" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@(item.StatusId)">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GenreId" class="control-label  pt-4 pb-1"></label>
+                <select name="GenreId" class="dropdown form-control">
+                    @foreach (var item in (IEnumerable<ProductGenre>)ViewData["ProductGenres"])
+                    {
+                        if ((int)Model?.GenreId == item.GenreId)
+                        {
+                            <option value="@(item.GenreId)" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@(item.GenreId)">@item.Name</option>
+                        }                    
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfPlayer" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="NumberOfPlayer" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="FeaturedPicture" class="control-label  pt-4 pb-1">Sélectionner l'image de présentation :</label>
+                <input type="file" class="form-control-file" id="FeaturedPicture" name="FeaturedPicture">
+            </div>
+            <img src="/img/products/@Model.ProductId/featured/@Model.FeaturedImage" border="0" class="img-thumbnail" />
+            <div class="form-group">
+                <label for="imageFiles" class="control-label  pt-4 pb-1">Select images :</label>
+                <input type="file" class="form-control-file" id="imageFiles" name="imageFiles" multiple>
+            </div>
+
+            @foreach (var item in (IEnumerable<ProductImage>)ViewData["ProductImages"])
+            {   
+                <img src="/img/products/@item.ProductId/@item.Image" border="0" class="img-thumbnail" />
+            }
+
+            <div class="form-group pt-4">
+                <input type="submit" value="Save Change" class="btn btn-primary" /> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

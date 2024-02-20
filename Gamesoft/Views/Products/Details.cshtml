@@ -1,0 +1,52 @@
+﻿@model Product
+@{
+    var productImages = (IEnumerable<ProductImage>)ViewData["ProductImages"];
+    var score = Model;
+    var isFirst = true;
+    var count = 0;
+}
+
+<div class="container d-flex align-items-center justify-content-center">
+    <div class="col" style="width: 50%">
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
+        <hr />        
+        <div id="carouselExampleIndicators" class="carousel slide align-items-center">
+            <div class="carousel-indicators">
+                @foreach (var item in productImages)
+                {
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@count" class="@(count == 0 ? "active" : "")" aria-current="true" aria-label="Slide @(count + 1)"></button>
+                    count++;
+                }
+            </div>
+            <div class="carousel-inner">
+                @foreach (var item in productImages)
+                {
+                    <div class="carousel-item@(isFirst ? " active" : "")">
+                        <img src="/img/products/@item.ProductId/@item.Image" border="0" class="d-block w-100" alt="" style="height: 30rem; object-fit: cover;" />
+                    </div>
+                    isFirst = false;
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <dl class="pt-3">
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>   
+            <dd class="col-sm-10">
+                <p>Price: @Html.DisplayFor(model => model.Price) €</p>
+            </dd>
+            <dt class="">
+                <p>Number of player: @Html.DisplayFor(model => model.NumberOfPlayer)</p>
+            </dt>        
+        </dl>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center p-4">GAMESOFT</h1>
+
+<h3 class="text-center">Sign Up</h3>
+<center><hr width="25%" /></center>
+
+<div class="container p-4 my-2 d-flex align-items-center justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="FeaturedImage" value="*" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="StudioName" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="StudioName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportId" class="control-label  pt-4 pb-1"></label>
+                <select name="SupportId" class="dropdown form-control">
+                    @foreach (var item in (IEnumerable<ProductSupport>)ViewData["ProductSupports"])
+                    {
+                        <option value="@(item.SupportId)">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <!--<div class="form-group">
+                <label asp-for="Support" class="control-label  pt-4 pb-1"></label>
+                <select asp-for="Support" class="form-control" />
+            </div>-->
+            <div class="form-group">
+                <label asp-for="Price" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="Price" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DevelopementPriority" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="DevelopementPriority" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineId" class="control-label  pt-4 pb-1"></label>
+                <select name="EngineId" class="dropdown form-control">
+                    @foreach (var item in (IEnumerable<ProductEngine>)ViewData["ProductEngines"])
+                    {
+                        <option value="@(item.EngineId)">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <!--<div class="form-group">
+                <label asp-for="Engine" class="control-label  pt-4 pb-1"></label>
+                <select asp-for="Engine" class="form-control" />
+            </div>-->
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label  pt-4 pb-1"></label>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastUpdatedDate" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="LastUpdatedDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimatedCreationEndDate" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="EstimatedCreationEndDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxBudget" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="MaxBudget" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusId" class="control-label  pt-4 pb-1"></label>
+                <select name="StatusId" class="dropdown form-control">
+                    @foreach (var item in (IEnumerable<ProductStatus>)ViewData["ProductStatuses"])
+                    {
+                        <option value="@(item.StatusId)">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <!--<div class="form-group">
+                <label asp-for="Status" class="control-label  pt-4 pb-1"></label>
+                <select asp-for="Status" class="form-control" />
+            </div>-->
+            <div class="form-group">
+                <label asp-for="GenreId" class="control-label  pt-4 pb-1"></label>
+                <select name="GenreId" class="dropdown form-control">
+                    @foreach (var productGenre in (IEnumerable<ProductGenre>)ViewData["ProductGenres"])
+                    {
+                    <option value="@(productGenre.GenreId)">@productGenre.Name</option>                    
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfPlayer" class="control-label  pt-4 pb-1"></label>
+                <input asp-for="NumberOfPlayer" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="FeaturedPicture" class="control-label  pt-4 pb-1">Select Featured Image :</label>
+                <input type="file" class="form-control-file" id="FeaturedPicture" name="FeaturedPicture">
+            </div>
+            <div class="form-group">
+                <label for="imageFiles" class="control-label  pt-4 pb-1">Select Carrousel Image :</label>
+                <input type="file" class="form-control-file" id="imageFiles" name="imageFiles" multiple>
+            </div>
+            
+            <div class="form-group pt-4">
+                <input type="submit" value="Create" class="btn btn-primary" /> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

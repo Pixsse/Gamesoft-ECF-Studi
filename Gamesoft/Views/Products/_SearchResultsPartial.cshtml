@@ -1,0 +1,20 @@
+﻿@model IEnumerable<VProductsStore>
+
+@foreach (var item in Model)
+{
+    var productFavorites = ((IEnumerable<ProductFavorite>)ViewData["ProductFavorites"]).FirstOrDefault(pf => pf.ProductId == item.ProductId);
+    string favoriteImg = (productFavorites == null) ? "Heart.png" : "HeartFill.png";
+    <div class="product-items">
+        <div class="card text-white bg-dark">
+            <img src="~/img/@favoriteImg" border="0" data-product-id="@item.ProductId" class="bi bi-heart position-absolute top-0 end-0 m-1 addToFavoriteBtn" />
+            <a asp-action="Details" asp-route-id="@item.ProductId">
+                <img src="/img/products/@item.ProductId/featured/@item.Image" border="0" class="card-img-top img-items" />
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">@item.Title</h5>
+                <p class="card-text">Score: <span id="score_@item.ProductId">@item.Score</span></p>
+                <p class="card-text">Price: @item.Price</p>
+            </div>
+        </div>
+    </div>
+}

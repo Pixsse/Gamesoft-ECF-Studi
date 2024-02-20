@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Account>
+
+
+<div class="container-fluid p-4 my-2 d-flex align-items-center justify-content-center">
+    <div class="col-xxl-5 text-black border bg-light p-5">
+        <h1>User List</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.AccountId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.AccountId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.AccountId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

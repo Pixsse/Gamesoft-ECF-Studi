@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Gamesoft.Models.News>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<center><h1>News Feed</h1></center>
+
+<div class=" container p-4 my-2 d-flex align-items-center justify-content-center">
+    <div class="col-xxl-5 text-black border bg-light p-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreationDate)
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.NewsId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.NewsId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.NewsId">Delete</a>
+                        </td>
+                    </tr>
+                }
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+            </tbody>
+        </table>
+    </div>
+</div>
+
